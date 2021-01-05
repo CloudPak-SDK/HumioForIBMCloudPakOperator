@@ -30,5 +30,5 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     - name: "ZOOKEEPER_URL"
       value: {{ include "CloudPakHumioCluster.fullname" . }}-zookeeper-client:2181
     - name: "KAFKA_SERVERS"
-      value: {{ include "CloudPakHumioCluster.fullname" . }}-kafka-brokers:9092"
+      value: {{ include "CloudPakHumioCluster.fullname" . }}-kafka-brokers:9092
     {{ end }}
