@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 strimzi:
-  createKafkaCluster: true
+  createKafkaCluster: false
   spec:
     kafka:
       version: 2.6.0
