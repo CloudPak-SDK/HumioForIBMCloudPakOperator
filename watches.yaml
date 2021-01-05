@@ -1,2 +1,6 @@
 # Use the 'create api' subcommand to add watches to this file.
+- group: humio.partners.ibm.com
+  version: v1alpha1
+  kind: CloudPakHumioCluster
+  chart: helm-charts/CloudPakHumioCluster
 # +kubebuilder:scaffold:watch

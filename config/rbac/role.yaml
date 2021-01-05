@@ -28,4 +28,64 @@ rules:
     verbs:
       - create
 
+  ##
+  ## Rules for charts.my.domain/v1alpha1, Kind: CloudPakHumioCluster
+  ##
+  - apiGroups:
+      - charts.my.domain
+    resources:
+      - cloudpakhumioclusters
+      - cloudpakhumioclusters/status
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - verbs:
+      - "*"
+    apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      - "kafkas"
+  - verbs:
+      - "*"
+    apiGroups:
+      - "core.humio.com"
+    resources:
+      - "humioclusters"
+      - "humiorepositories"
+
+  ##
+  ## Rules for humio.partners.ibm.com/v1alpha1, Kind: CloudPakHumioCluster
+  ##
+  - apiGroups:
+      - humio.partners.ibm.com
+    resources:
+      - cloudpakhumioclusters
+      - cloudpakhumioclusters/status
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - verbs:
+      - "*"
+    apiGroups:
+      - "core.humio.com"
+    resources:
+      - "humioclusters"
+      - "humiorepositories"
+  - verbs:
+      - "*"
+    apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      - "kafkas"
+
 # +kubebuilder:scaffold:rules

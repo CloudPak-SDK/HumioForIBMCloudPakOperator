@@ -1,0 +1,54 @@
+apiVersion: humio.partners.ibm.com/v1alpha1
+kind: CloudPakHumioCluster
+metadata:
+  name: cloudpakhumiocluster-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/CloudPakHumioCluster/values.yaml
+  cp4mmRepoSpec:
+    allowDataDeletion: false
+    description: CP4MM Application Logs
+    name: cp4mm
+    retention:
+      ingestSizeInGB: 10
+      storageSizeInGB: 5
+      timeInDays: 30
+  humioClusterSpec:
+    image: humio/humio-core:1.18.1
+    nodeCount: 1
+    targetReplicationFactor: 1
+  strimzi:
+    createKafkaCluster: true
+    spec:
+      entityOperator:
+        topicOperator: { }
+        userOperator: { }
+      kafka:
+        config:
+          inter.broker.protocol.version: "2.6"
+          log.message.format.version: "2.6"
+          offsets.topic.replication.factor: 3
+          transaction.state.log.min.isr: 2
+          transaction.state.log.replication.factor: 3
+        listeners:
+          - name: plain
+            port: 9092
+            tls: false
+            type: internal
+          - name: tls
+            port: 9093
+            tls: true
+            type: internal
+        replicas: 3
+        storage:
+          deleteClaim: true
+          size: 100Gi
+          type: persistent-claim
+        version: 2.6.0
+      zookeeper:
+        replicas: 3
+        storage:
+          deleteClaim: true
+          size: 100Gi
+          type: persistent-claim
+  
+  

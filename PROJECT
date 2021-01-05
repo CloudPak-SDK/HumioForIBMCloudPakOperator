@@ -1,4 +1,8 @@
-domain: my.domain
+domain: partners.ibm.com
 layout: helm.sdk.operatorframework.io/v1
 projectName: humioforibmcloudpakoperator
+resources:
+- group: humio
+  kind: CloudPakHumioCluster
+  version: v1alpha1
 version: 3-alpha
