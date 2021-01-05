@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Route address
+*/}}
+{{- define "CloudPakHumioCluster.routeurlreference" -}}
+{{ include "CloudPakHumioCluster.fullname" . }}-{{ .Release.Namespace }}.{{ "{{" }} .OpenShiftBaseUrl {{ "}}" }}
+{{- end }}
