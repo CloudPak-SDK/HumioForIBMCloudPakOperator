@@ -4,13 +4,6 @@ metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
-  {{ if .Values.strimzi.createKafkaCluster }}
-  environmentVariables:
-    - name: "ZOOKEEPER_URL"
-      value: "humio-kafka-zookeeper-client:2181"
-    - name: "KAFKA_SERVERS"
-      value: "humio-kafka-kafka-brokers:9092"
-  {{ end }}
   environmentVariables:
     - name: "AUTHENTICATION_METHOD"
       value: "oauth"
@@ -33,3 +26,9 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
         secretKeyRef:
           name: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
           key: CLIENT_SECRET
+    {{ if .Values.strimzi.createKafkaCluster }}
+    - name: "ZOOKEEPER_URL"
+      value: {{ include "CloudPakHumioCluster.fullname" . }}-zookeeper-client:2181
+    - name: "KAFKA_SERVERS"
+      value: {{ include "CloudPakHumioCluster.fullname" . }}-kafka-brokers:9092"
+    {{ end }}
