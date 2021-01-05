@@ -1,0 +1,13 @@
+apiVersion: core.humio.com/v1alpha1
+kind: HumioCluster
+metadata:
+  name: {{ include "CloudPakHumioCluster.fullname" . }}
+  labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
+spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
+  {{ if .Values.strimzi.createKafkaCluster }}
+  environmentVariables:
+    - name: "ZOOKEEPER_URL"
+      value: "humio-kafka-zookeeper-client:2181"
+    - name: "KAFKA_SERVERS"
+      value: "humio-kafka-kafka-brokers:9092"
+  {{ end }}

@@ -1,0 +1,49 @@
+# Default values for CloudPakHumioCluster.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+strimzi:
+  createKafkaCluster: true
+  spec:
+    kafka:
+      version: 2.6.0
+      replicas: 3
+      listeners:
+        - name: plain
+          port: 9092
+          type: internal
+          tls: false
+        - name: tls
+          port: 9093
+          type: internal
+          tls: true
+      config:
+        offsets.topic.replication.factor: 3
+        transaction.state.log.replication.factor: 3
+        transaction.state.log.min.isr: 2
+        log.message.format.version: "2.6"
+        inter.broker.protocol.version: "2.6"
+      storage:
+        type: persistent-claim
+        size: 100Gi
+        deleteClaim: true
+    zookeeper:
+      replicas: 3
+      storage:
+        type: persistent-claim
+        size: 100Gi
+        deleteClaim: true
+    entityOperator:
+      topicOperator: { }
+      userOperator: { }
+humioClusterSpec:
+  image: "humio/humio-core:1.18.1"
+  nodeCount: 1
+  targetReplicationFactor: 1
+cp4mmRepoSpec:
+  name: "cp4mm"
+  description: "CP4MM Application Logs"
+  allowDataDeletion: false
+  retention:
+    ingestSizeInGB: 10
+    storageSizeInGB: 5
+    timeInDays: 30
