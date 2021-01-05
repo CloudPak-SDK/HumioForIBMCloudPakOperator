@@ -5,6 +5,9 @@ metadata:
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
   environmentVariables:
+    {{ if .Values.humioClusterSpec.environmentVariables }}
+    {{ .Values.humioClusterSpec.environmentVariables | toYaml | nindent 4 }}
+    {{ end }}
     - name: "AUTHENTICATION_METHOD"
       value: "oauth"
     - name: "AUTO_CREATE_USER_ON_SUCCESSFUL_LOGIN"
