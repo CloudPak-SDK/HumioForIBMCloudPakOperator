@@ -2,11 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 strimzi:
-  createKafkaCluster: true
+  createKafkaCluster: false
   spec:
     kafka:
       version: 2.6.0
-      replicas: 1
+      replicas: 3
       listeners:
         - name: plain
           port: 9092
@@ -17,9 +17,9 @@ strimzi:
           type: internal
           tls: true
       config:
-        offsets.topic.replication.factor: 1
-        transaction.state.log.replication.factor: 1
-        transaction.state.log.min.isr: 1
+        offsets.topic.replication.factor: 3
+        transaction.state.log.replication.factor: 3
+        transaction.state.log.min.isr: 2
         log.message.format.version: "2.6"
         inter.broker.protocol.version: "2.6"
       storage:
@@ -27,7 +27,7 @@ strimzi:
         size: 100Gi
         deleteClaim: true
     zookeeper:
-      replicas: 1
+      replicas: 3
       storage:
         type: persistent-claim
         size: 100Gi
@@ -37,8 +37,8 @@ strimzi:
       userOperator: { }
 humioClusterSpec:
   image: "humio/humio-core:1.18.1"
-  nodeCount: 1
-  targetReplicationFactor: 1
+  nodeCount: 3
+  targetReplicationFactor: 3
   dataVolumePersistentVolumeClaimSpecTemplate:
     accessModes:
       - ReadWriteOnce
