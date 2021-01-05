@@ -11,3 +11,25 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     - name: "KAFKA_SERVERS"
       value: "humio-kafka-kafka-brokers:9092"
   {{ end }}
+  environmentVariables:
+    - name: "AUTHENTICATION_METHOD"
+      value: "oauth"
+    - name: "AUTO_CREATE_USER_ON_SUCCESSFUL_LOGIN"
+      value: "true"
+    - name: "OIDC_USERNAME_CLAIM"
+      value: "email" {{ /* TODO use uid instead if possible */ }}
+    - name: "OIDC_PROVIDER"
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
+          key: OIDC_ISSUER_URL
+    - name: "OIDC_OAUTH_CLIENT_ID"
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
+          key: CLIENT_ID
+    - name: "OIDC_OAUTH_CLIENT_SECRET"
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
+          key: CLIENT_SECRET

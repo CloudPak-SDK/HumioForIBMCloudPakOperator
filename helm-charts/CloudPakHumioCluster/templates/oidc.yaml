@@ -14,5 +14,5 @@ spec:
       - https://{{ include "CloudPakHumioCluster.routeurlreference" . }}/auth/oidc
     client_secret:
       secretName: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
-      secretKey: client-secret
+        secretKey: CLIENT_SECRET
     apply_client_secret: true
