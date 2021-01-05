@@ -39,6 +39,12 @@ humioClusterSpec:
   image: "humio/humio-core:1.18.1"
   nodeCount: 3
   targetReplicationFactor: 3
+  dataVolumePersistentVolumeClaimSpecTemplate:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Gi
 cp4mmRepoSpec:
   name: "cp4mm"
   description: "CP4MM Application Logs"
