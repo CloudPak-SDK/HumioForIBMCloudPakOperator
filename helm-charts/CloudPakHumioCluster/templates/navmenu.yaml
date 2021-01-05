@@ -1,0 +1,18 @@
+apiVersion: integrations.sdk.management.ibm.com/v1beta1
+kind: NavMenuEntry
+metadata:
+  name: {{ include "CloudPakHumioCluster.fullname" . }}
+  labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
+spec:
+  target: "humio"
+  name: "Humio"
+  parentId: "monitor"
+  roles:
+    - name: ClusterAdministrator
+    - name: Administrator
+    - name: Operator
+    - name: Viewer
+    - name: Editor
+    - name: Auditor
+    - name: AccountAdministrator
+  url: https://{{ include "CloudPakHumioCluster.routeurlreference" . }}
