@@ -67,3 +67,7 @@ Route address
 {{- define "CloudPakHumioCluster.routeurlreference" -}}
 {{ include "CloudPakHumioCluster.fullname" . }}-{{ .Release.Namespace }}.{{ "{{" }} .OpenShiftBaseUrl {{ "}}" }}
 {{- end }}
+
+{{- define "clientSecret" -}}
+CLIENT_SECRET
+{{- end }}
