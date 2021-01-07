@@ -4,6 +4,9 @@ metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
+  {{ if .Values.viewGroupPermissions }}
+  viewGroupPermissions: '{{ .Values.viewGroupPermissions | toJson }}'
+  {{ end }}
   environmentVariables:
     {{ if .Values.humioClusterSpec.environmentVariables }}
     {{ .Values.humioClusterSpec.environmentVariables | toYaml | nindent 4 }}
