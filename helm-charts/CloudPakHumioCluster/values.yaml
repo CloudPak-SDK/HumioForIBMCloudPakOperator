@@ -54,3 +54,5 @@ cp4mmRepoSpec:
     ingestSizeInGB: 10
     storageSizeInGB: 5
     timeInDays: 30
+OidcUsernameClaim: "email"
+OidcGroupsClaim: "groups"

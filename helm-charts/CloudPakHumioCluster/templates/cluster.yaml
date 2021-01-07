@@ -13,7 +13,9 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     - name: "AUTO_CREATE_USER_ON_SUCCESSFUL_LOGIN"
       value: "true"
     - name: "OIDC_USERNAME_CLAIM"
-      value: "email" {{/* TODO use uid instead if possible */}}
+      value: {{ .Values.OidcUsernameClaim }}
+    - name: "OIDC_GROUPS_CLAIM"
+      value: {{ .Values.OidcGroupsClaim }}
     - name: "OIDC_PROVIDER"
       valueFrom:
         secretKeyRef:

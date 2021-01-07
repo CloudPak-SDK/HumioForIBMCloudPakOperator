@@ -5,6 +5,7 @@ metadata:
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec:
   registration:
+    scope: "openid profile {{ .Values.OidcUsernameClaim }} {{ .Values.OidcGroupsClaim }}"
     post_logout_redirect_uris:
       - https://{{ include "CloudPakHumioCluster.routeurlreference" . }}
     trusted_uri_prefixes:
