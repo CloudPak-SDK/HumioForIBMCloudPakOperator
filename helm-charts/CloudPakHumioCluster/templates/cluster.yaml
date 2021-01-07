@@ -7,7 +7,7 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
   viewGroupPermissions: |-
     {
     "defaults": {
-        "{{ .Values.adminGroup }}": {
+        {{ .Values.adminGroup | quote }}: {
             "queryPrefix": "*",
             "canEditMembers": true,
             "canEditAlerts": true,
