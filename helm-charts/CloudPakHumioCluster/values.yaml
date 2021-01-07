@@ -56,3 +56,4 @@ cp4mmRepoSpec:
     timeInDays: 30
 OidcUsernameClaim: "email"
 OidcGroupsClaim: "groups"
+adminGroup: "admins"
