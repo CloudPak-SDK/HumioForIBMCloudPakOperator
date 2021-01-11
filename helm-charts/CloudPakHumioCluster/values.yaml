@@ -55,5 +55,5 @@ cp4mmRepoSpec:
     storageSizeInGB: 5
     timeInDays: 30
 OidcUsernameClaim: "email"
-OidcGroupsClaim: "groups"
+OidcGroupsClaim: "groupIds"
 adminGroup: "admins"
