@@ -37,6 +37,8 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
       value: "oauth"
     - name: "AUTO_CREATE_USER_ON_SUCCESSFUL_LOGIN"
       value: "true"
+    - name: "AUTO_UPDATE_GROUP_MEMBERSHIPS_ON_SUCCESSFUL_LOGIN"
+      value: "true"
     - name: "OIDC_USERNAME_CLAIM"
       value: {{ .Values.OidcUsernameClaim }}
     - name: "OIDC_GROUPS_CLAIM"
