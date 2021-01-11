@@ -4,10 +4,11 @@ metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
+  {{ if .Values.cp4mmFullAccessGroup }}
   viewGroupPermissions: |-
     {
     "defaults": {
-        {{ .Values.adminGroup | quote }}: {
+        {{ .Values.cp4mmFullAccessGroup | quote }}: {
             "queryPrefix": "*",
             "canEditMembers": true,
             "canEditAlerts": true,
@@ -29,6 +30,7 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
             }
         }
     }
+  {{ end }}
   environmentVariables:
     {{ if .Values.humioClusterSpec.environmentVariables }}
     {{ .Values.humioClusterSpec.environmentVariables | toYaml | nindent 4 }}
