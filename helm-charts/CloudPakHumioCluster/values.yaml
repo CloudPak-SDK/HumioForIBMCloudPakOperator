@@ -57,4 +57,4 @@ cp4mmRepoSpec:
 OidcUsernameClaim: "email"
 OidcGroupsClaim: "groupIds"
 cp4mmFullAccessGroup: ""
-keyStoreSecret: ""
+BedRockSelfSignedCert: false

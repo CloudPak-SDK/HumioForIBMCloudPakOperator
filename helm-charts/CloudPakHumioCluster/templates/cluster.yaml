@@ -66,13 +66,13 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     - name: "KAFKA_SERVERS"
       value: {{ include "CloudPakHumioCluster.fullname" . }}-kafka-brokers:9092
     {{ end }}
-    {{ if .Values.keyStoreSecret }}
+    {{ if .Values.BedRockSelfSignedCert }}
     - name: HUMIO_JVM_ARGS
       value: -Djavax.net.ssl.trustStore=/truststore/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit
   extraVolumes:
     - name: truststore
       secret:
-        secretName: {{ .Values.keyStoreSecret }}
+        secretName: truststore
   extraHumioVolumeMounts:
     - mountPath: /truststore
       name: truststore
