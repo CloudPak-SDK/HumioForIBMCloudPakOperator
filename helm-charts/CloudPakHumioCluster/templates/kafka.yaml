@@ -3,6 +3,7 @@ apiVersion: kafka.strimzi.io/v1beta1
 kind: Kafka
 metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
+  namespace: cp4m
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.strimzi.spec | toYaml | nindent 2 }}
   {{ end }}
