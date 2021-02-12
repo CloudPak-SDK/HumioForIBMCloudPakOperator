@@ -178,7 +178,7 @@ spec:
           - kafkas
           verbs:
           - '*'
-        serviceAccountname: manager
+        serviceAccountName: humioforibmcloudpakoperator-manager
       deployments:
       - name: humioforibmcloudpakoperator-controller-manager
         spec:
@@ -205,6 +205,7 @@ spec:
                   requests:
                     cpu: 100m
                     memory: 60Mi
+              serviceAccountName: humioforibmcloudpakoperator-manager
               terminationGracePeriodSeconds: 10
       permissions:
       - rules:
@@ -227,7 +228,7 @@ spec:
           verbs:
           - create
           - patch
-        serviceAccountname: manager
+        serviceAccountName: humioforibmcloudpakoperator-manager
     strategy: deployment
   installModes:
   - supported: true
