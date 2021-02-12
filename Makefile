@@ -101,7 +101,7 @@ bundle-build:
 # Build the index image
 .PHONY: index-build
 index-build:
-	opm index add --bundles $(BUNDLE_IMG) $(HUMIO_BUNDLE_IMG) --tag $(INDEX_IMG) --build-tool docker
+	opm index add --bundles $(BUNDLE_IMG),$(HUMIO_BUNDLE_IMG) --tag $(INDEX_IMG) --build-tool docker
 	docker push $(INDEX_IMG)
 
 
