@@ -15,4 +15,4 @@ spec:
     - name: Editor
     - name: Auditor
     - name: AccountAdministrator
-  url: https://{{ include "CloudPakHumioCluster.routeurlreference" . }}
+  url: https://{{ include "CloudPakHumioCluster.routeurlreference" . }}/humio
