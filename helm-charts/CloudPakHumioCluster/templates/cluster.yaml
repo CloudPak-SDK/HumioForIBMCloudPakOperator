@@ -34,6 +34,11 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
         secretKeyRef:
           name: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
           key: {{ include "clientSecret" . }}
+    - name: "PUBLIC_URL"
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "CloudPakHumioCluster.fullname" . }}-oidc
+          key: "TRUSTED_URI_PREFIX_0"
     {{ if .Values.strimzi.createKafkaCluster }}
     - name: "ZOOKEEPER_URL"
       value: {{ include "CloudPakHumioCluster.fullname" . }}-zookeeper-client:2181

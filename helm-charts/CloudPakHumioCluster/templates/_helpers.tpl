@@ -65,7 +65,7 @@ Create the name of the service account to use
 Route address
 */}}
 {{- define "CloudPakHumioCluster.routeurlreference" -}}
-cp-console.{{ "{{" }} .OpenShiftBaseUrl {{ "}}" }}/humio
+cp-console.{{ "{{" }} .OpenShiftBaseUrl {{ "}}" }}
 {{- end }}
 
 {{- define "clientSecret" -}}
