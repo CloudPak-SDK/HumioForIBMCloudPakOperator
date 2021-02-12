@@ -52,7 +52,6 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     {{ end }}
   ingress:
     enabled: true
-    controller: ibm-icp-management
     tls: true
     secretName: cs-ca-certificate-secret
     esSecretName: cs-ca-certificate-secret
