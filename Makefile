@@ -1,7 +1,11 @@
+# Image Repository
+IMG_REPO ?= quay.io/zach_robinson
 # Current Operator version
 VERSION ?= 0.0.1
 # Default bundle image tag
-BUNDLE_IMG ?= quay.io/zach_robinson/ibm-cp4m-humio-operator-bundle:$(VERSION)
+BUNDLE_IMG ?= $(IMG_REPO)/ibm-cp4m-humio-operator-bundle:$(VERSION)
+# Default index image tag
+INDEX_IMG ?= $(IMG_REPO)/ibm-cp4m-humio-operator-index:$(VERSION)
 # Options for 'bundle-build'
 ifneq ($(origin CHANNELS), undefined)
 BUNDLE_CHANNELS := --channels=$(CHANNELS)
@@ -12,7 +16,7 @@ endif
 BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 
 # Image URL to use all building/pushing image targets
-IMG ?= quay.io/zach_robinson/ibm-cp4m-humio-operator:latest
+IMG ?= $(IMG_REPO)/ibm-cp4m-humio-operator:$(VERSION)
 
 all: docker-build
 
@@ -39,7 +43,7 @@ undeploy: kustomize
 
 # Build the docker image
 docker-build:
-	docker build . -t ${IMG}
+	docker build --pull . -t ${IMG}
 
 # Push the docker image
 docker-push:
@@ -89,4 +93,13 @@ bundle: kustomize
 # Build the bundle image.
 .PHONY: bundle-build
 bundle-build:
-	docker build -f bundle.Dockerfile -t $(BUNDLE_IMG) .
+	docker build --pull -f bundle.Dockerfile -t $(BUNDLE_IMG) .
+	docker push $(BUNDLE_IMG)
+
+# Build the index image
+.PHONY: index-build
+index-build:
+	opm index add --bundles $(BUNDLE_IMG) --tag $(INDEX_IMG) --build-tool docker
+	docker push $(INDEX_IMG)
+
+
