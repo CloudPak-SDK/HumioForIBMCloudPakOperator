@@ -105,4 +105,11 @@ index-build:
 	opm index add --bundles $(BUNDLE_IMG),$(HUMIO_BUNDLE_IMG) --tag $(INDEX_IMG) --build-tool docker
 	docker push $(INDEX_IMG)
 
+# Install the index-image as a CatalogSource
+.Phony: catalog
+catalog:
+	export INDEX_IMG=$(INDEX_IMG) && ./catalog-install.sh
+
+
+
 
