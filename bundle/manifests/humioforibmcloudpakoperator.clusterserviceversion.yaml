@@ -8,7 +8,7 @@ metadata:
           "apiVersion": "humio.partners.ibm.com/v1alpha1",
           "kind": "CloudPakHumioCluster",
           "metadata": {
-            "name": "cloudpakhumiocluster-sample"
+            "name": "cphumio"
           },
           "spec": {
             "BedRockSelfSignedCert": false,
