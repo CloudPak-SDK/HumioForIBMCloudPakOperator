@@ -13,6 +13,7 @@ spec:
     trusted_uri_prefixes:
       - https://{{ include "CloudPakHumioCluster.routeurlreference" . }}
       - https://{{ include "CloudPakHumioCluster.routeurlreference" . }}:443
+      - https://{{ include "CloudPakHumioCluster.routeurlreference" . }}/humio
     redirect_uris:
       - https://{{ include "CloudPakHumioCluster.routeurlreference" . }}/humio/auth/oidc
     client_secret:
