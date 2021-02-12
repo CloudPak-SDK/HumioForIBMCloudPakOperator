@@ -2,7 +2,85 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    alm-examples: '[]'
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "humio.partners.ibm.com/v1alpha1",
+          "kind": "CloudPakHumioCluster",
+          "metadata": {
+            "name": "cloudpakhumiocluster-sample"
+          },
+          "spec": {
+            "BedRockSelfSignedCert": false,
+            "OidcGroupsClaim": "groupIds",
+            "OidcUsernameClaim": "email",
+            "humioClusterSpec": {
+              "dataVolumePersistentVolumeClaimSpecTemplate": {
+                "accessModes": [
+                  "ReadWriteOnce"
+                ],
+                "resources": {
+                  "requests": {
+                    "storage": "100Gi"
+                  }
+                }
+              },
+              "environmentVariables": {},
+              "helperImage": "humio/humio-operator-helper/1.18.1",
+              "image": "humio/humio-core:1.18.1",
+              "nodeCount": 3,
+              "targetReplicationFactor": 3
+            },
+            "strimzi": {
+              "createKafkaCluster": true,
+              "spec": {
+                "entityOperator": {
+                  "topicOperator": {},
+                  "userOperator": {}
+                },
+                "kafka": {
+                  "config": {
+                    "inter.broker.protocol.version": "2.6",
+                    "log.message.format.version": "2.6",
+                    "offsets.topic.replication.factor": 3,
+                    "transaction.state.log.min.isr": 2,
+                    "transaction.state.log.replication.factor": 3
+                  },
+                  "listeners": [
+                    {
+                      "name": "plain",
+                      "port": 9092,
+                      "tls": false,
+                      "type": "internal"
+                    },
+                    {
+                      "name": "tls",
+                      "port": 9093,
+                      "tls": true,
+                      "type": "internal"
+                    }
+                  ],
+                  "replicas": 3,
+                  "storage": {
+                    "deleteClaim": true,
+                    "size": "100Gi",
+                    "type": "persistent-claim"
+                  },
+                  "version": "2.6.0"
+                },
+                "zookeeper": {
+                  "replicas": 3,
+                  "storage": {
+                    "deleteClaim": true,
+                    "size": "100Gi",
+                    "type": "persistent-claim"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
     capabilities: Basic Install
     operators.operatorframework.io/builder: operator-sdk-v1.0.0
     operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
@@ -11,6 +89,11 @@ metadata:
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
+    owned:
+    - description: CloudPak-Integrated Humio Chart
+      kind: CloudPakHumioCluster
+      name: cloudpakhumioclusters.humio.partners.ibm.com
+      version: v1alpha1
     required:
     - description: Humio Cluster
       kind: HumioCluster
@@ -31,7 +114,128 @@ spec:
     mediatype: ""
   install:
     spec:
-      deployments: []
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+        - apiGroups:
+          - charts.my.domain
+          resources:
+          - cloudpakhumioclusters
+          - cloudpakhumioclusters/status
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - kafka.strimzi.io
+          resources:
+          - kafkas
+          verbs:
+          - '*'
+        - apiGroups:
+          - core.humio.com
+          resources:
+          - humioclusters
+          - humiorepositories
+          verbs:
+          - '*'
+        - apiGroups:
+          - humio.partners.ibm.com
+          resources:
+          - cloudpakhumioclusters
+          - cloudpakhumioclusters/status
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - core.humio.com
+          resources:
+          - humioclusters
+          - humiorepositories
+          verbs:
+          - '*'
+        - apiGroups:
+          - kafka.strimzi.io
+          resources:
+          - kafkas
+          verbs:
+          - '*'
+        serviceAccountName: default
+      deployments:
+      - name: humioforibmcloudpakoperator-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                control-plane: controller-manager
+            spec:
+              containers:
+              - args:
+                - --enable-leader-election
+                - --leader-election-id=humioforibmcloudpakoperator
+                image: quay.io/zach_robinson/ibm-cp4m-humio-operator:0.0.1
+                name: manager
+                resources:
+                  limits:
+                    cpu: 100m
+                    memory: 90Mi
+                  requests:
+                    cpu: 100m
+                    memory: 60Mi
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: default
     strategy: deployment
   installModes:
   - supported: true

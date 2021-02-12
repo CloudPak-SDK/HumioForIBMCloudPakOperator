@@ -3,19 +3,21 @@ kind: CloudPakHumioCluster
 metadata:
   name: cloudpakhumiocluster-sample
 spec:
-  # Default values copied from <project_dir>/helm-charts/CloudPakHumioCluster/values.yaml
-  cp4mmRepoSpec:
-    allowDataDeletion: false
-    description: CP4MM Application Logs
-    name: cp4mm
-    retention:
-      ingestSizeInGB: 10
-      storageSizeInGB: 5
-      timeInDays: 30
   humioClusterSpec:
-    image: humio/humio-core:1.18.1
-    nodeCount: 1
-    targetReplicationFactor: 1
+    image: "humio/humio-core:1.18.1"
+    helperImage: "humio/humio-operator-helper/1.18.1"
+    nodeCount: 3
+    targetReplicationFactor: 3
+    dataVolumePersistentVolumeClaimSpecTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Gi
+    environmentVariables: {}
+  OidcUsernameClaim: "email"
+  OidcGroupsClaim: "groupIds"
+  BedRockSelfSignedCert: false
   strimzi:
     createKafkaCluster: true
     spec:
