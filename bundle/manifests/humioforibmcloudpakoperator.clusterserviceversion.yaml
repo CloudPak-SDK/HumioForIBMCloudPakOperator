@@ -83,7 +83,7 @@ spec:
           verbs:
           - create
         - apiGroups:
-          - charts.my.domain
+          - humio.partners.ibm.com
           resources:
           - cloudpakhumioclusters
           - cloudpakhumioclusters/status
@@ -125,13 +125,19 @@ spec:
           - core.humio.com
           resources:
           - humioclusters
-          - humiorepositories
           verbs:
           - '*'
         - apiGroups:
           - kafka.strimzi.io
           resources:
           - kafkas
+          verbs:
+          - '*'
+        - apiGroups:
+          - integrations.sdk.management.ibm.com
+          resources:
+          - oidcclientregistrations
+          - navmenuentries
           verbs:
           - '*'
         serviceAccountName: humioforibmcloudpakoperator-manager

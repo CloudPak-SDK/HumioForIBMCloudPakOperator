@@ -32,7 +32,7 @@ rules:
   ## Rules for charts.my.domain/v1alpha1, Kind: CloudPakHumioCluster
   ##
   - apiGroups:
-      - charts.my.domain
+      - humio.partners.ibm.com
     resources:
       - cloudpakhumioclusters
       - cloudpakhumioclusters/status
@@ -80,12 +80,18 @@ rules:
       - "core.humio.com"
     resources:
       - "humioclusters"
-      - "humiorepositories"
   - verbs:
       - "*"
     apiGroups:
       - "kafka.strimzi.io"
     resources:
       - "kafkas"
+  - verbs:
+      - "*"
+    apiGroups:
+      - "integrations.sdk.management.ibm.com"
+    resources:
+      - "oidcclientregistrations"
+      - "navmenuentries"
 
 # +kubebuilder:scaffold:rules
