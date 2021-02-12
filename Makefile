@@ -6,6 +6,8 @@ VERSION ?= 0.0.1
 BUNDLE_IMG ?= $(IMG_REPO)/ibm-cp4m-humio-operator-bundle:$(VERSION)
 # Default index image tag
 INDEX_IMG ?= $(IMG_REPO)/ibm-cp4m-humio-operator-index:$(VERSION)
+# Image containing the Humio-Operator Bundle
+HUMIO_BUNDLE_IMG ?= quay.io/zach_robinson/humio-bundle:0.0.1
 # Options for 'bundle-build'
 ifneq ($(origin CHANNELS), undefined)
 BUNDLE_CHANNELS := --channels=$(CHANNELS)
@@ -99,7 +101,7 @@ bundle-build:
 # Build the index image
 .PHONY: index-build
 index-build:
-	opm index add --bundles $(BUNDLE_IMG) --tag $(INDEX_IMG) --build-tool docker
+	opm index add --bundles $(BUNDLE_IMG) $(HUMIO_BUNDLE_IMG) --tag $(INDEX_IMG) --build-tool docker
 	docker push $(INDEX_IMG)
 
 
