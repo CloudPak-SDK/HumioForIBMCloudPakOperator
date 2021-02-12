@@ -99,14 +99,6 @@ spec:
       kind: HumioCluster
       name: humioclusters.core.humio.com
       version: v1alpha1
-    - description: defines a new entry in the primary CloudPak Nav-Menu. This product is not deployable standalone and is part of the LICCR already accepted
-      kind: NavMenuEntry
-      name: navmenuentries.integrations.sdk.management.ibm.com
-      version: v1beta1
-    - description: manages registration of an OIDC client with IAM
-      kind: OidcClientRegistration
-      name: oidcclientregistrations.integrations.sdk.management.ibm.com
-      version: v1beta1
   description: Humio IBM Cloud Pak® Integration Operator
   displayName: Humio for IBM Cloud Pak®
   icon:
