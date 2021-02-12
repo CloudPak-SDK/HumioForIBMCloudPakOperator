@@ -52,6 +52,7 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     {{ end }}
   ingress:
     enabled: true
+    tls: false
     controller: nginx
     annotations:
       kubernetes.io/ingress.class: ibm-icp-management
