@@ -178,7 +178,7 @@ spec:
           - kafkas
           verbs:
           - '*'
-        serviceAccountName: default
+        serviceAccountname: manager
       deployments:
       - name: humioforibmcloudpakoperator-controller-manager
         spec:
@@ -227,7 +227,7 @@ spec:
           verbs:
           - create
           - patch
-        serviceAccountName: default
+        serviceAccountname: manager
     strategy: deployment
   installModes:
   - supported: true
