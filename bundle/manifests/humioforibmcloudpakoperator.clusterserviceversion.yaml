@@ -26,7 +26,7 @@ metadata:
                 }
               },
               "environmentVariables": {},
-              "helperImage": "humio/humio-operator-helper/1.18.1",
+              "helperImage": "humio/humio-operator-helper/0.0.8",
               "image": "humio/humio-core:1.18.1",
               "nodeCount": 3,
               "targetReplicationFactor": 3
