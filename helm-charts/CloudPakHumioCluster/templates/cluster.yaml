@@ -4,33 +4,6 @@ metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
-  {{ if .Values.cp4mmFullAccessGroup }}
-  viewGroupPermissions: |-
-    {
-    "defaults": {
-        {{ .Values.cp4mmFullAccessGroup | quote }}: {
-            "queryPrefix": "*",
-            "canEditMembers": true,
-            "canEditAlerts": true,
-            "canEditDashboards": true,
-            "canEditFiles": true,
-            "canEditParsers": true,
-            "canEditQueries": true,
-            "canEditIngestListeners": true,
-            "canDeleteEvents": true,
-            "canEditRetention": true,
-            "canDeleteDataSources": true,
-            "canDeleteDataSpace": true,
-            "canChangeDeleteEventsPermission": true,
-            "canEditSearchSettings": true,
-            "canEditS3Archiving": true,
-            "canConnectView": true,
-            "canReadEvents": true,
-            "canWriteEvents": true
-            }
-        }
-    }
-  {{ end }}
   environmentVariables:
     {{ if .Values.humioClusterSpec.environmentVariables }}
     {{ .Values.humioClusterSpec.environmentVariables | toYaml | nindent 4 }}

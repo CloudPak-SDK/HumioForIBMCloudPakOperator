@@ -56,5 +56,4 @@ cp4mmRepoSpec:
     timeInDays: 30
 OidcUsernameClaim: "email"
 OidcGroupsClaim: "groupIds"
-cp4mmFullAccessGroup: ""
 BedRockSelfSignedCert: false
