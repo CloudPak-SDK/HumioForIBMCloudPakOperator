@@ -87,6 +87,7 @@ spec:
           resources:
           - cloudpakhumioclusters
           - cloudpakhumioclusters/status
+          - cloudpakhumioclusters/finalizers
           verbs:
           - create
           - delete
