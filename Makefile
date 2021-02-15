@@ -106,8 +106,8 @@ index-build:
 	docker push $(INDEX_IMG)
 
 # Install the index-image as a CatalogSource
-.Phony: catalog
-catalog:
+.Phony: install-catalog
+install-catalog:
 	export INDEX_IMG=$(INDEX_IMG) && ./catalog-install.sh
 
 
