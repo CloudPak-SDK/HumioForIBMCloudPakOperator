@@ -15,3 +15,5 @@ spec:
               port:
                 name: http
           path: /humio
+          pathType: ImplementationSpecific
+
