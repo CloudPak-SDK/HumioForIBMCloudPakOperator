@@ -94,5 +94,17 @@ rules:
     resources:
       - "oidcclientregistrations"
       - "navmenuentries"
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
 # +kubebuilder:scaffold:rules

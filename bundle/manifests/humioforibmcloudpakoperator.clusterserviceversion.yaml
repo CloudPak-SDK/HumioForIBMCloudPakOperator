@@ -141,9 +141,21 @@ spec:
           - navmenuentries
           verbs:
           - '*'
-        serviceAccountName: humioforibmcloudpakoperator-manager
+        - apiGroups:
+          - networking.k8s.io
+          resources:
+          - ingresses
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        serviceAccountName: cphumio-manager
       deployments:
-      - name: humioforibmcloudpakoperator-controller-manager
+      - name: cphumio-controller-manager
         spec:
           replicas: 1
           selector:
@@ -160,15 +172,16 @@ spec:
                 - --enable-leader-election
                 - --leader-election-id=humioforibmcloudpakoperator
                 image: quay.io/zach_robinson/ibm-cp4m-humio-operator:0.0.1
+                imagePullPolicy: Always
                 name: manager
                 resources:
                   limits:
                     cpu: 100m
-                    memory: 90Mi
+                    memory: 256Mi
                   requests:
                     cpu: 100m
-                    memory: 60Mi
-              serviceAccountName: humioforibmcloudpakoperator-manager
+                    memory: 64Mi
+              serviceAccountName: cphumio-manager
               terminationGracePeriodSeconds: 10
       permissions:
       - rules:
@@ -191,7 +204,7 @@ spec:
           verbs:
           - create
           - patch
-        serviceAccountName: humioforibmcloudpakoperator-manager
+        serviceAccountName: cphumio-manager
     strategy: deployment
   installModes:
   - supported: false
