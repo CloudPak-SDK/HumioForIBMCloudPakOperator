@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "CloudPakHumioCluster.fullname" . }}
+  annotations:
+    kubernetes.io/ingress.class: ibm-icp-management
+spec:
+  rules:
+  - http:
+      paths:
+        - backend:
+            service:
+              name: {{ include "CloudPakHumioCluster.fullname" . }}
+          path: /humio/
+          pathType: ImplementationSpecific
+

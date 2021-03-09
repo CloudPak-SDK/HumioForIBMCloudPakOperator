@@ -2,7 +2,6 @@ apiVersion: core.humio.com/v1alpha1
 kind: HumioCluster
 metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
-  namespace: cp4m
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
   environmentVariables:
@@ -56,10 +55,4 @@ spec: {{ .Values.humioClusterSpec | toYaml | nindent 2 }}
     - mountPath: /truststore
       name: truststore
     {{ end }}
-  ingress:
-    enabled: true
-    tls: false
-    controller: nginx
-    annotations:
-      kubernetes.io/ingress.class: ibm-icp-management
   path: "/humio"

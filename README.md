@@ -7,6 +7,8 @@ Manages Humio Clusters integrated with IBM Cloudpak for Multicloud Management
 - IBM Cloudpak for Multicloud Management 2.3+
 - A Kafka Installation or Strimzi Operator Installation Acessible from the cp4m namespace
 - kubectl / oc
+### Notice
+**This guide assumes that the IBM Cloudpak for Multicloud Management Installation CR is installed in the cp4m namespace. If you installed this resource to a different namespace, replace references to cp4m in this guide with your own installation namespace.**
 ### Install the Humio Operator using the Helm Chart
 1. Download the [Humio Operator Helm Chart](https://github.com/humio/humio-operator/tree/master/charts/humio-operator)
 2. Install the Humio Operator via Helm 

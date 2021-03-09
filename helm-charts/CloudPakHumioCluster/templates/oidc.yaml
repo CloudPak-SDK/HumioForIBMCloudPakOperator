@@ -2,7 +2,6 @@ apiVersion: integrations.sdk.management.ibm.com/v1beta1
 kind: OidcClientRegistration
 metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}
-  namespace: cp4m
   labels: {{ include "CloudPakHumioCluster.labels" . | nindent 4 }}
 spec:
   registration:
