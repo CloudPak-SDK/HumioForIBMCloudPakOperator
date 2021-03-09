@@ -35,6 +35,7 @@ Common labels
 */}}
 {{- define "CloudPakHumioCluster.labels" -}}
 helm.sh/chart: {{ include "CloudPakHumioCluster.chart" . }}
+meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 {{ include "CloudPakHumioCluster.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
