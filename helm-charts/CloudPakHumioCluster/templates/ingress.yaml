@@ -13,7 +13,7 @@ spec:
             service:
               name: {{ include "CloudPakHumioCluster.fullname" . }}
               port:
-                name: http
+                number: 8080
           path: /humio
           pathType: ImplementationSpecific
 
