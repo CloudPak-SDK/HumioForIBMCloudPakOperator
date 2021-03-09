@@ -11,6 +11,8 @@ spec:
         - backend:
             service:
               name: {{ include "CloudPakHumioCluster.fullname" . }}
+              port:
+                name: http
           path: /humio/
           pathType: ImplementationSpecific
 
