@@ -1,5 +1,5 @@
 {{ if .Values.strimzi.createKafkaCluster }}
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: {{ .Values.strimzi.apiVersion }}
 kind: Kafka
 metadata:
   name: {{ include "CloudPakHumioCluster.fullname" . }}

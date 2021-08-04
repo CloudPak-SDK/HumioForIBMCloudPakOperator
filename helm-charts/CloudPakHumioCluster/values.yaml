@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 strimzi:
   createKafkaCluster: false
+  apiVersion: kafka.strimzi.io/v1beta2
   spec:
     kafka:
       version: 2.6.0
